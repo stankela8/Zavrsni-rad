@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "324552721167",
+    "project_id": "prvanogometnaligaapp",
+    "storage_bucket": "prvanogometnaligaapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:324552721167:android:8c5e68338f9322c1f6f47a",
+        "android_client_info": {
+          "package_name": "com.example.prvanogometnaliga"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "324552721167-v49sivdp9369ah50p4h39u7rvdjkpqjd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAd-85zkWc5m1r4AfjvBx_uWcRoCA2_xO4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "324552721167-v49sivdp9369ah50p4h39u7rvdjkpqjd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:324552721167:android:29f1b3e84f2c7191f6f47a",
+        "android_client_info": {
+          "package_name": "com.example.prvanogometnaliga2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "324552721167-v49sivdp9369ah50p4h39u7rvdjkpqjd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAd-85zkWc5m1r4AfjvBx_uWcRoCA2_xO4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "324552721167-v49sivdp9369ah50p4h39u7rvdjkpqjd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
