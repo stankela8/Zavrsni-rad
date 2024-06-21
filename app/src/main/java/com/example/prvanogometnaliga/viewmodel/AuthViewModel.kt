@@ -9,38 +9,50 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class AuthViewModel : ViewModel() {
-    private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
-    private val _user = MutableStateFlow<FirebaseUser?>(firebaseAuth.currentUser)
-    val user: StateFlow<FirebaseUser?> = _user
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
-    fun signUp(email: String, password: String) {
+    private val _user = MutableStateFlow<FirebaseUser?>(null)
+    val user: StateFlow<FirebaseUser?> get() = _user
+
+    private val _authError = MutableStateFlow<String?>(null)
+    val authError: StateFlow<String?> get() = _authError
+
+    init {
+        _user.value = auth.currentUser
+    }
+
+    fun signIn(email: String, password: String) {
         viewModelScope.launch {
-            firebaseAuth.createUserWithEmailAndPassword(email, password)
+            auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        _user.value = firebaseAuth.currentUser
+                        _user.value = auth.currentUser
+                        _authError.value = null
                     } else {
-                        task.exception?.printStackTrace()
+                        _user.value = null
+                        _authError.value = task.exception?.message
                     }
                 }
         }
     }
 
-    fun signIn(email: String, password: String) {
+    fun signUp(email: String, password: String) {
         viewModelScope.launch {
-            firebaseAuth.signInWithEmailAndPassword(email, password)
+            auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        _user.value = firebaseAuth.currentUser
+                        _user.value = auth.currentUser
+                        _authError.value = null
                     } else {
-                        task.exception?.printStackTrace()
+                        _user.value = null
+                        _authError.value = task.exception?.message
                     }
                 }
         }
     }
 
     fun signOut() {
-        firebaseAuth.signOut()
+        auth.signOut()
         _user.value = null
     }
 }

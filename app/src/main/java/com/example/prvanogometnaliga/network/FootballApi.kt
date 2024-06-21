@@ -4,6 +4,7 @@ import com.example.prvanogometnaliga.model.ApiResponse
 import com.example.prvanogometnaliga.model.FixturesResponse
 import com.example.prvanogometnaliga.model.PlayerApiResponse
 import com.example.prvanogometnaliga.model.TransfersResponse
+import com.example.prvanogometnaliga.network.models.SquadResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -58,4 +59,13 @@ interface ApiFootballService {
         @Query("league") leagueId: Int,
         @Query("season") season: Int
     ): Response<PlayerApiResponse>
+
+    @Headers(
+        "x-rapidapi-key: ac3d1aca25msh93b53f0edb584a3p1d60eajsn11a7967b27d9",
+        "x-rapidapi-host: api-football-v1.p.rapidapi.com"
+    )
+    @GET("v3/players/squads")
+    suspend fun getSquad(
+        @Query("team") teamId: Int
+    ): SquadResponse
 }

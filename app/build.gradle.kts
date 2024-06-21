@@ -78,4 +78,5 @@ dependencies {
     implementation("androidx.compose.runtime:runtime-livedata")
     implementation ("com.google.android.gms:play-services-auth:20.1.0")
     implementation ("io.coil-kt:coil-compose:2.0.0")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0")
 }

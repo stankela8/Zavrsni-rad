@@ -3,7 +3,10 @@ package com.example.prvanogometnaliga.viewmodel
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.prvanogometnaliga.model.*
+import com.example.prvanogometnaliga.network.models.SquadResponse
 import com.example.prvanogometnaliga.repository.FootballRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class FootballLeagueViewModel(private val repository: FootballRepository) : ViewModel() {
@@ -93,6 +96,19 @@ class FootballLeagueViewModel(private val repository: FootballRepository) : View
                 }
             } catch (e: Exception) {
                 Log.e("FootballLeagueViewModel", "Error fetching top yellow cards", e)
+            }
+        }
+    }
+    private val _squadResponse = MutableStateFlow<SquadResponse?>(null)
+    val squadResponse: StateFlow<SquadResponse?> = _squadResponse
+
+    fun fetchSquad(teamId: Int) {
+        viewModelScope.launch {
+            try {
+                val response = repository.getSquad(teamId)
+                _squadResponse.value = response
+            } catch (e: Exception) {
+                _squadResponse.value = null
             }
         }
     }

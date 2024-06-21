@@ -23,14 +23,14 @@ fun StatisticsScreen(footballLeagueViewModel: FootballLeagueViewModel = viewMode
             TextButton(onClick = { selectedCategory = "Top Scorers" }) {
                 Text("Top Scorers")
             }
-            TextButton(onClick = { selectedCategory = "Top Yellow Cards" }) {
-                Text("Top Yellow Cards")
+            TextButton(onClick = { selectedCategory = "Most Yellow Cards" }) {
+                Text("Most Yellow Cards")
             }
         }
 
         when (selectedCategory) {
             "Top Scorers" -> TopScorersScreen(footballLeagueViewModel)
-            "Top Yellow Cards" -> TopYellowCardsScreen(footballLeagueViewModel)
+            "Most Yellow Cards" -> TopYellowCardsScreen(footballLeagueViewModel)
         }
     }
 }
@@ -40,7 +40,7 @@ fun TopScorersScreen(footballLeagueViewModel: FootballLeagueViewModel) {
     val topScorers by footballLeagueViewModel.topScorers.observeAsState(emptyList())
 
     LaunchedEffect(Unit) {
-        footballLeagueViewModel.fetchTopScorers(211, 2023) // Zamijeniti sa stvarnim leagueId i season
+        footballLeagueViewModel.fetchTopScorers(211, 2023)
     }
 
     LazyColumn(modifier = Modifier.fillMaxSize()) {
@@ -55,7 +55,7 @@ fun TopYellowCardsScreen(footballLeagueViewModel: FootballLeagueViewModel) {
     val topYellowCards by footballLeagueViewModel.topYellowCards.observeAsState(emptyList())
 
     LaunchedEffect(Unit) {
-        footballLeagueViewModel.fetchTopYellowCards(211, 2023) // Zamijeniti sa stvarnim leagueId i season
+        footballLeagueViewModel.fetchTopYellowCards(211, 2023)
     }
 
     LazyColumn(modifier = Modifier.fillMaxSize()) {
