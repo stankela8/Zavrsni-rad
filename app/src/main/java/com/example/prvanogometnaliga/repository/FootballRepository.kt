@@ -30,3 +30,4 @@ class FootballRepository(private val api: ApiFootballService) {
         return api.getSquad(teamId)
     }
 }
+

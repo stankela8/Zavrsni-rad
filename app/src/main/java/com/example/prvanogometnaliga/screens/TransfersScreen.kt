@@ -26,7 +26,7 @@ fun TransfersScreen(navController: androidx.navigation.NavController, footballLe
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
-                text = "Transfers",
+                text = "Pick a team: ",
                 style = MaterialTheme.typography.headlineSmall,
                 color = MaterialTheme.colorScheme.onBackground
             )

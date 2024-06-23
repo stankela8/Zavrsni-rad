@@ -6,11 +6,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 val LightColors = lightColorScheme(
-    primary = Color(0xFFE53935), // Bright red primary color
+    primary = Color(0xFFE53935),
     onPrimary = Color.White,
     primaryContainer = Color(0xFFFFCDD2),
     onPrimaryContainer = Color(0xFFB71C1C),
-    secondary = Color(0xFF1E88E5), // Bright blue secondary color
+    secondary = Color(0xFF1E88E5),
     onSecondary = Color.White,
     secondaryContainer = Color(0xFFBBDEFB),
     onSecondaryContainer = Color(0xFF0D47A1),

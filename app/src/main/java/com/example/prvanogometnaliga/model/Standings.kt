@@ -47,7 +47,7 @@ data class TeamStanding(
     @SerializedName("description")
     val description: String?,
     @SerializedName("all")
-    val all: AllStats // Dodajemo ovo polje za dodatne statistike
+    val all: AllStats
 )
 data class AllStats(
     @SerializedName("played")

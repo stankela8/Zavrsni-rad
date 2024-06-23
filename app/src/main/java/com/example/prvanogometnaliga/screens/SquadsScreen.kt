@@ -31,7 +31,7 @@ fun SquadsScreen(navController: androidx.navigation.NavController, footballLeagu
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
-                text = "Pick a squad: ",
+                text = "Pick a team: ",
                 style = MaterialTheme.typography.headlineSmall,
                 color = MaterialTheme.colorScheme.onBackground
             )

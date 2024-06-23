@@ -61,7 +61,7 @@ fun PlayerItem(player: PlayerInfo) {
         "Defender" -> Color(0xFF99FF99) // Svijetlo zelena
         "Midfielder" -> Color(0xFFFF9999) // Svijetlo crvena
         "Attacker" -> Color(0xFF99CCFF) // Svijetlo plava
-        else -> Color.White // Defaultna boja
+        else -> Color.White
     }
 
     Row(
