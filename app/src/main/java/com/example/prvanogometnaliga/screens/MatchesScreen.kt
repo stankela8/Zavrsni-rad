@@ -13,12 +13,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.example.prvanogometnaliga.viewmodel.FootballLeagueViewModel
 import com.example.prvanogometnaliga.model.FixtureResponse
 
 @Composable
-fun MatchesScreen(footballLeagueViewModel: FootballLeagueViewModel = viewModel()) {
+fun MatchesScreen(
+    navController: NavController,
+    footballLeagueViewModel: FootballLeagueViewModel = viewModel()
+) {
     val groupedFixtures by footballLeagueViewModel.groupedFixtures.observeAsState(emptyMap())
     var selectedRound by remember { mutableStateOf(1) }
     var expanded by remember { mutableStateOf(false) }
@@ -48,7 +52,9 @@ fun MatchesScreen(footballLeagueViewModel: FootballLeagueViewModel = viewModel()
                 LazyColumn {
                     groupedFixtures[selectedRound]?.let { fixtures ->
                         items(fixtures) { fixture ->
-                            FixtureItem(fixture)
+                            FixtureItem(fixture) {
+                                navController.navigate("comments/${fixture.fixture.id}")
+                            }
                         }
                     }
                 }
@@ -56,6 +62,7 @@ fun MatchesScreen(footballLeagueViewModel: FootballLeagueViewModel = viewModel()
         }
     }
 }
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -106,11 +113,12 @@ fun RoundDropdown(
 }
 
 @Composable
-fun FixtureItem(fixture: FixtureResponse) {
+fun FixtureItem(fixture: FixtureResponse, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp),
+            .padding(vertical = 8.dp)
+            .clickable { onClick() },
         shape = MaterialTheme.shapes.medium,
         elevation = CardDefaults.cardElevation(4.dp)
     ) {

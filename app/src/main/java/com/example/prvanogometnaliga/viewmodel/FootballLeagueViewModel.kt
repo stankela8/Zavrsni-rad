@@ -4,12 +4,17 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.example.prvanogometnaliga.model.*
 import com.example.prvanogometnaliga.network.models.SquadResponse
+import com.example.prvanogometnaliga.repository.FirestoreRepository
 import com.example.prvanogometnaliga.repository.FootballRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class FootballLeagueViewModel(private val repository: FootballRepository) : ViewModel() {
+class FootballLeagueViewModel(
+    private val repository: FootballRepository,
+    private val firestore: FirestoreRepository,
+    private val authViewModel: AuthViewModel
+) : ViewModel(){
 
     private val _standings = MutableLiveData<List<TeamStanding>>()
     val standings: LiveData<List<TeamStanding>> = _standings
@@ -112,4 +117,17 @@ class FootballLeagueViewModel(private val repository: FootballRepository) : View
             }
         }
     }
+
+    fun getComments(matchId: String): LiveData<List<Comment>> {
+        return firestore.getComments(matchId)
+    }
+
+    fun addComment(matchId: String, comment: Comment) {
+        val user = authViewModel.user.value
+        if (user != null) {
+            firestore.addComment(matchId, comment)
+        }
+    }
+
+
 }

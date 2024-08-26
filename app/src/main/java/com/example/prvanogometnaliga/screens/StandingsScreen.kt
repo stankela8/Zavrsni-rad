@@ -20,20 +20,64 @@ import com.example.prvanogometnaliga.viewmodel.FootballLeagueViewModel
 import com.example.prvanogometnaliga.model.TeamStanding
 
 @Composable
+fun SeasonSelector(
+    selectedSeason: Int,
+    onSeasonSelected: (Int) -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        horizontalArrangement = Arrangement.SpaceEvenly
+    ) {
+        Button(
+            onClick = { onSeasonSelected(2023) },
+            colors = if (selectedSeason == 2023) ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.primary
+            ) else ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.secondary
+            )
+        ) {
+            Text("2023/24")
+        }
+        Button(
+            onClick = { onSeasonSelected(2024) },
+            colors = if (selectedSeason == 2024) ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.primary
+            ) else ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.secondary
+            )
+        ) {
+            Text("2024/25")
+        }
+    }
+}
+
+@Composable
 fun StandingsScreen(navController: NavController, footballLeagueViewModel: FootballLeagueViewModel = viewModel()) {
+    var selectedSeason by remember { mutableStateOf(2023) }
     val standings by footballLeagueViewModel.standings.observeAsState(emptyList())
+
+    LaunchedEffect(selectedSeason) {
+        footballLeagueViewModel.fetchStandings(leagueId = 211, season = selectedSeason)
+    }
 
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Text(
-                text = "Standings",
-                style = MaterialTheme.typography.headlineSmall,
-                color = MaterialTheme.colorScheme.onBackground
+
+            SeasonSelector(
+                selectedSeason = selectedSeason,
+                onSeasonSelected = { season ->
+                    selectedSeason = season
+                    footballLeagueViewModel.fetchStandings(leagueId = 211, season = selectedSeason)
+                }
             )
+
             Spacer(modifier = Modifier.height(16.dp))
+
             if (standings.isEmpty()) {
                 Text(text = "No standings available", style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onBackground))
             } else {
@@ -42,6 +86,7 @@ fun StandingsScreen(navController: NavController, footballLeagueViewModel: Footb
         }
     }
 }
+
 
 @Composable
 fun StandingsTable(standings: List<TeamStanding>) {

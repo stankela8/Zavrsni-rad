@@ -79,4 +79,5 @@ dependencies {
     implementation ("com.google.android.gms:play-services-auth:20.1.0")
     implementation ("io.coil-kt:coil-compose:2.0.0")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0")
+    implementation ("androidx.webkit:webkit:1.6.0")
 }

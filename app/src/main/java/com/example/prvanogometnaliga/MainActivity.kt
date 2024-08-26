@@ -28,12 +28,17 @@ class MainActivity : ComponentActivity() {
 
         val repository = FootballRepository(RetrofitInstance.api)
         val firestoreRepository = FirestoreRepository()
-        val viewModelProviderFactory = FootballLeagueViewModelFactory(repository)
-        footballLeagueViewModel = ViewModelProvider(this, viewModelProviderFactory).get(FootballLeagueViewModel::class.java)
+
+        // Inicijalizacija AuthViewModel-a
         authViewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
+
+        // Inicijalizacija FootballLeagueViewModel-a
+        val footballLeagueViewModelFactory = FootballLeagueViewModelFactory(repository, firestoreRepository, authViewModel)
+        footballLeagueViewModel = ViewModelProvider(this, footballLeagueViewModelFactory).get(FootballLeagueViewModel::class.java)
+
+        // Inicijalizacija FirestoreViewModel-a
         val firestoreViewModelFactory = FirestoreViewModelFactory(firestoreRepository)
         firestoreViewModel = ViewModelProvider(this, firestoreViewModelFactory).get(FirestoreViewModel::class.java)
-
 
         val leagueId = 211
         val season = 2023
@@ -55,7 +60,7 @@ class MainActivity : ComponentActivity() {
                             StandingsScreen(navController, footballLeagueViewModel)
                         }
                         composable("matches") {
-                            MatchesScreen(footballLeagueViewModel)
+                            MatchesScreen(navController, footballLeagueViewModel)
                         }
                         composable("statistics") {
                             StatisticsScreen(footballLeagueViewModel)
@@ -79,6 +84,19 @@ class MainActivity : ComponentActivity() {
                         ) { backStackEntry ->
                             val teamId = backStackEntry.arguments?.getInt("teamId") ?: 0
                             SquadDetailsScreen(teamId, footballLeagueViewModel)
+                        }
+                        composable("highlights"){
+                            HighlightsScreen()
+                        }
+                        composable("profile")
+                        {
+                            ProfileScreen()
+                        }
+                        composable("comments/{matchId}") { backStackEntry ->
+                            val matchId = backStackEntry.arguments?.getString("matchId")
+                            if (matchId != null) {
+                                CommentsScreen(matchId = matchId, navController = navController, footballLeagueViewModel = footballLeagueViewModel, authViewModel = authViewModel)
+                            }
                         }
                     }
                 }

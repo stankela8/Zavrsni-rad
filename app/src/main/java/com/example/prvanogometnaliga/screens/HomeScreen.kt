@@ -46,6 +46,7 @@ fun HomeScreen(navController: NavController, authViewModel: AuthViewModel) {
         HomeScreenButton("Highlights", R.drawable.highlights_icon, navController, "highlights", buttonModifier, buttonColors)
         HomeScreenButton("Statistics", R.drawable.statistics_icon, navController, "statistics", buttonModifier, buttonColors)
         HomeScreenButton("Transfers", R.drawable.transfer_icon, navController, "transfers", buttonModifier, buttonColors)
+        HomeScreenButton("MyProfile", R.drawable.user_icon, navController, "profile", buttonModifier, buttonColors)
 
         Button(
             onClick = {
